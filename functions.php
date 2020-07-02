@@ -140,8 +140,8 @@ add_action( 'wp_head', 'boilerplate_javascript_detection', 0 );
  * Enqueues scripts and styles.
  */
 function boilerplate_scripts() {
-	wp_enqueue_style( 'boilerplate-style', get_theme_file_uri( 'dist/app.css' ), array(), filemtime( get_theme_file_path( 'dist/bundle.css' ) ), 'screen' );
-	wp_enqueue_script( 'boilerplate-script', get_theme_file_uri( 'dist/app.js' ), array(), filemtime( get_theme_file_path( 'dist/bundle.js' ) ), true );
+	wp_enqueue_style( 'boilerplate-style', get_theme_file_uri( 'dist/bundle.css' ), array(), filemtime( get_theme_file_path( 'dist/bundle.css' ) ), 'screen' );
+	wp_enqueue_script( 'boilerplate-script', get_theme_file_uri( 'dist/bundle.js' ), array(), filemtime( get_theme_file_path( 'dist/bundle.js' ) ), true );
 }
 add_action( 'wp_enqueue_scripts', 'boilerplate_scripts' );
 
