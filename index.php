@@ -9,7 +9,7 @@ get_header();
 
 ?>
 
-  <div>Hello world!</div>
+  <h1>Hello world!</h1>
 
 <?php
 

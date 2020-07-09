@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
         filename: "bundle.css"
       })
     ],
-    entry: ["./src/scripts/app.js", "./src/styles/global.scss"],
+    entry: ["./src/scripts/app.js", "./src/styles/main.scss"],
     output: {
       path: __dirname + "/dist",
       filename: "bundle.js"
