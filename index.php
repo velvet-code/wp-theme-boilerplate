@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying the front page
+ * Template for displaying posts listing
  *
  * @package boilerplate
  */
@@ -9,7 +9,7 @@ get_header();
 
 ?>
 
-hello world
+  <div>Hello world!</div>
 
 <?php
 

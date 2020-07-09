@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying the footer
+ * Template for displaying the footer
  *
  * @package boilerblate
  */
