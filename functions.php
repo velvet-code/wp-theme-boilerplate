@@ -75,7 +75,7 @@ add_action(
          */
         register_nav_menus(
             [
-                'primary' => __('Primary Menu', 'chatbox')
+              'primary' => __('Primary Menu', 'boilerplate')
             ]
         );
     }
