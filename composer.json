@@ -25,14 +25,6 @@
   ],
   "require": {
     "composer/installers": "~1.0",
-    "wpackagist-plugin/stream": "*",
-    "wpackagist-plugin/regenerate-thumbnails": "*",
-    "wpackagist-plugin/disable-comments": "*",
-    "wpackagist-plugin/autodescription": "*",
-    "wpackagist-plugin/safe-svg": "*",
-    "wpackagist-plugin/simple-custom-post-order": "*",
-    "wpackagist-plugin/favicon-by-realfavicongenerator": "*",
-    "wpackagist-plugin/disable-search": "*",
     "acf/advanced-custom-fields-pro": "*",
     "ithemes/backupbuddy": "*"
   },
