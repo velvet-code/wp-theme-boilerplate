@@ -2,7 +2,7 @@
 /**
  * Template for displaying the footer
  *
- * @package boilerblate
+ * @package boilerplate
  */
 
 wp_footer();
