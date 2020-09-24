@@ -5,22 +5,24 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   return {
+    devtool: "source-map",
     plugins: [
       new CopyPlugin([
         {
           from: "./src/static",
-          to: "static"
-        }
+          to: "static",
+        },
       ]),
 
       new MiniCssExtractPlugin({
-        filename: "bundle.css"
-      })
+        filename: "bundle.css",
+      }),
     ],
     entry: ["./src/scripts/app.js", "./src/styles/main.scss"],
     output: {
       path: __dirname + "/dist",
-      filename: "bundle.js"
+      filename: "bundle.js",
+      sourceMapFilename: "[file].map",
     },
     module: {
       rules: [
@@ -28,22 +30,36 @@ module.exports = (env, argv) => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader"
-          }
+            loader: "babel-loader",
+          },
         },
         {
           test: /\.s[ac]ss$/i,
           use: [
-            MiniCssExtractPlugin.loader,
-            //   // Creates `style` nodes from JS strings
-            //   "style-loader",
-            //   // Translates CSS into CommonJS
-            "css-loader?url=false",
-            "postcss-loader",
-            // Compiles Sass to CSS
-            "sass-loader"
-          ]
-        }
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            {
+              loader: "css-loader",
+              options: {
+                url: false,
+                sourceMap: true,
+              },
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
         // {
         //   test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         //   use: [
@@ -56,7 +72,7 @@ module.exports = (env, argv) => {
         //     }
         //   ]
         // }
-      ]
-    }
+      ],
+    },
   };
 };
