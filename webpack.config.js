@@ -1,78 +1,98 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const fs = require("fs");
-const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-module.exports = (env, argv) => {
+module.exports = env => {
+  const plugins = [
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
+    })
+  ];
+
+  if (env === "production") {
+    plugins.push(new CleanWebpackPlugin());
+  }
+
   return {
-    devtool: "source-map",
-    plugins: [
-      new CopyPlugin([
-        {
-          from: "./src/static",
-          to: "static",
-        },
-      ]),
-
-      new MiniCssExtractPlugin({
-        filename: "bundle.css",
-      }),
-    ],
-    entry: ["./src/scripts/app.js", "./src/styles/main.scss"],
-    output: {
-      path: __dirname + "/dist",
-      filename: "bundle.js",
-      sourceMapFilename: "[file].map",
+    entry: {
+      app: "./src/scripts/app.js"
     },
+    output: {
+      filename: "[name].js",
+      path: path.resolve(__dirname, "dist")
+    },
+    devtool: "source-map",
     module: {
       rules: [
         {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
-          },
+            loader: "babel-loader"
+          }
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.css$/,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: MiniCssExtractPlugin.loader
             },
             {
-              loader: "css-loader",
-              options: {
-                url: false,
-                sourceMap: true,
-              },
+              loader: "css-loader"
             },
             {
-              loader: "postcss-loader",
-              options: {
-                sourceMap: true,
-              },
-            },
-            {
-              loader: "sass-loader",
-              options: {
-                sourceMap: true,
-              },
-            },
-          ],
+              loader: "postcss-loader"
+            }
+          ]
         },
-        // {
-        //   test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        //   use: [
-        //     {
-        //       loader: "file-loader",
-        //       options: {
-        //         name: "[name].[ext]",
-        //         outputPath: "dist/static/fonts"
-        //       }
-        //     }
-        //   ]
-        // }
-      ],
+        {
+          test: /\.(png|jpe?g|gif|svg)$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                name: "[name].[ext]",
+                outputPath: "images"
+              }
+            },
+            {
+              loader: "image-webpack-loader",
+              options: {
+                mozjpeg: {
+                  progressive: true,
+                  quality: 65
+                },
+                // optipng.enabled: false will disable optipng
+                optipng: {
+                  enabled: false
+                },
+                // pngquant: {
+                //   quality: [0.6, 1]
+                // },
+                gifsicle: {
+                  interlaced: false
+                }
+                // the webp option will enable WEBP
+                // webp: {
+                //   quality: 75
+                // }
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(woff|woff2|ttf|otf|eot)$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                outputPath: "fonts"
+              }
+            }
+          ]
+        }
+      ]
     },
+    plugins
   };
 };

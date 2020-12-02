@@ -6,11 +6,8 @@
  */
 
 get_header();
-
 ?>
 
-  <h1>Hello world!</h1>
+  <h1 class="text-3xl text-red-500">Hello world!</h1>
 
-<?php
-
-get_footer();
+<?php get_footer(); ?>
