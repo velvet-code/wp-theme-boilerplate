@@ -1,6 +1,6 @@
 # themeName
 
-This project uses [Velvet WP Theme Boilerplate](https://github.com/velvet-code/wp-theme-boilerplate) with [Tailwind CSS](https://tailwindcss.com/).
+This project uses [Velvet's WP Theme Boilerplate](https://github.com/velvet-code/wp-theme-boilerplate) with [Tailwind CSS](https://tailwindcss.com/).
 
 ### Velvet WP Boilerplate
 
