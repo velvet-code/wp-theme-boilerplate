@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
@@ -6,7 +7,13 @@ module.exports = env => {
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css"
-    })
+    }),
+    new CopyPlugin([
+      {
+        from: "./src/static",
+        to: "static",
+      },
+    ]),
   ];
 
   if (env === "production") {
@@ -38,10 +45,16 @@ module.exports = env => {
               loader: MiniCssExtractPlugin.loader
             },
             {
-              loader: "css-loader"
+              loader: "css-loader",
+              options: {
+                sourceMap: true,
+              }
             },
             {
-              loader: "postcss-loader"
+              loader: "postcss-loader",
+              options: {
+                sourceMap: true,
+              }
             }
           ]
         },

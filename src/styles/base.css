@@ -1,3 +1,5 @@
 h1 {
+  @apply font-bold;
+
   color: theme("colors.black");
 }
