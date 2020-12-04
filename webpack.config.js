@@ -21,9 +21,7 @@ module.exports = env => {
   }
 
   return {
-    entry: {
-      app: "./src/scripts/app.js"
-    },
+    entry: ["./src/scripts/app.js", "./src/styles/global.css"],
     output: {
       filename: "[name].js",
       path: path.resolve(__dirname, "dist")
