@@ -118,8 +118,8 @@ add_action(
  */
 add_action(
     'wp_enqueue_scripts', function () {
-        wp_enqueue_style('main-style', get_theme_file_uri('dist/app.css'), array(), filemtime(get_theme_file_path('dist/app.css')), 'screen');
-        wp_enqueue_script('main-script', get_theme_file_uri('dist/app.js'), array(), filemtime(get_theme_file_path('dist/app.js')), true);
+        wp_enqueue_style('main-style', get_theme_file_uri('dist/main.css'), array(), filemtime(get_theme_file_path('dist/main.css')), 'screen');
+        wp_enqueue_script('main-script', get_theme_file_uri('dist/main.js'), array(), filemtime(get_theme_file_path('dist/main.js')), true);
     }
 );
 
