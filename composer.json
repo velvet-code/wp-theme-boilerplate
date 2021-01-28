@@ -26,7 +26,8 @@
   "require": {
     "composer/installers": "~1.0",
     "acf/advanced-custom-fields-pro": "*",
-    "ithemes/backupbuddy": "*"
+    "ithemes/backupbuddy": "*",
+    "wpackagist-plugin/simple-history": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.8.0",

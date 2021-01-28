@@ -144,11 +144,6 @@ if (function_exists('acf_add_options_page')) {
 }
 
 /**
- * Stream - Hide front-end notice
- */
-add_filter('wp_stream_frontend_indicator', '__return_false');
-
-/**
  *  Remove the H1 tag from the WordPress editor.
  *
  *  @param   array $settings  The array of editor settings.
