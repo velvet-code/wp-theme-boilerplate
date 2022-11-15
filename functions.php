@@ -6,6 +6,8 @@
  * @package boilerplate
  */
 
+include 'includes/template-functions.php';
+
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
