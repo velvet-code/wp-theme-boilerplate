@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Theme functions and definitions
  *
  * @package boilerplate
  */
-
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -14,7 +14,8 @@
  * as indicating support for post thumbnails.
  */
 add_action(
-    'after_setup_theme', function () {
+    'after_setup_theme',
+    function () {
         /**
          * Enable plugins to manage the document title
          * @link https://developer.wordpress.org/reference/functions/add_theme_support/#title-tag
@@ -32,7 +33,8 @@ add_action(
          * @link https://developer.wordpress.org/reference/functions/add_theme_support/#html5
          */
         add_theme_support(
-            'html5', [
+            'html5',
+            [
                 'search-form',
                 'gallery',
                 'caption',
@@ -44,7 +46,8 @@ add_action(
          * Read more at http://awesomeacf.com/how-to-avoid-conflicts-when-using-the-acf-local-json-feature/
          */
         add_filter(
-            'acf/settings/show_admin', function () {
+            'acf/settings/show_admin',
+            function () {
                 $site_url = get_bloginfo('url');
 
                 // An array of site urls where ACF is visible.
@@ -95,7 +98,8 @@ add_filter('allow_major_auto_core_updates', '__return_true');
 add_filter('xmlrpc_enabled', '__return_false');
 
 add_filter(
-    'wp_headers', function ($headers) {
+    'wp_headers',
+    function ($headers) {
         unset($headers['X-Pingback']);
         return $headers;
     }
@@ -108,16 +112,19 @@ add_filter(
  * Function from Twenty Sixteen.
  */
 add_action(
-    'wp_head', function() {
+    'wp_head',
+    function () {
         echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
-    }, 0
+    },
+    0
 );
 
 /**
  * Enqueues scripts and styles.
  */
 add_action(
-    'wp_enqueue_scripts', function () {
+    'wp_enqueue_scripts',
+    function () {
         wp_enqueue_style('main-style', get_theme_file_uri('dist/main.css'), array(), filemtime(get_theme_file_path('dist/main.css')), 'screen');
         wp_enqueue_script('main-script', get_theme_file_uri('dist/main.js'), array(), filemtime(get_theme_file_path('dist/main.js')), true);
     }
@@ -130,7 +137,8 @@ add_action(
  * @return array          New array
  */
 add_filter(
-    'mce_buttons_2', function ($buttons) {
+    'mce_buttons_2',
+    function ($buttons) {
         $remove = array('forecolor');
         return array_diff($buttons, $remove);
     }
@@ -150,8 +158,37 @@ if (function_exists('acf_add_options_page')) {
  *  @return  array            The modified edit settings
  */
 add_filter(
-    'tiny_mce_before_init', function ($settings) {
+    'tiny_mce_before_init',
+    function ($settings) {
         $settings['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;';
         return $settings;
     }
 );
+
+/**
+ * Disable users api endpoint.
+ * &endpoints.
+ */
+
+function Disable_Custom_Rest_endpoints($endpoints)
+{
+    $routes = array( '/wp/v2/users', '/wp/v2/users/(?P<id>[\d]+)' );
+
+    foreach ($routes as $route) {
+        if (empty($endpoints[ $route ])) {
+            continue;
+        }
+
+        foreach ($endpoints[ $route ] as $i => $handlers) {
+            if (
+                is_array($handlers) && isset($handlers['methods']) &&
+                'GET' === $handlers['methods']
+            ) {
+                unset($endpoints[ $route ][ $i ]);
+            }
+        }
+    }
+
+    return $endpoints;
+}
+add_filter('rest_endpoints', 'Disable_Custom_Rest_endpoints');
